@@ -69,7 +69,16 @@ export default function TaskListEditorPage({ params }) {
         <GlassButton
           variant="ghost"
           size="sm"
-          onClick={() => router.push('/dashboard/tasks')}
+          onClick={async () => {
+            if (newTaskText.trim()) {
+              try {
+                await createTask(listId, newTaskText.trim());
+              } catch (err) {
+                console.error(err);
+              }
+            }
+            router.push('/dashboard/tasks');
+          }}
           className="!rounded-xl shadow-sm hover:!bg-[var(--color-primary)] hover:!text-white"
         >
           حفظ وخروج

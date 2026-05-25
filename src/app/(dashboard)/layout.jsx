@@ -14,15 +14,16 @@ export default function DashboardLayout({ children }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerRef = useRef(null);
 
-  // ─── First-Login Onboarding: Auto-open drawer ───
+  // ─── First-Login Onboarding: Auto-open drawer (Mobile only) ───
   useEffect(() => {
     if (!user) return;
     const key = `moko_first_visit_${user.uid}`;
     const seen = localStorage.getItem(key);
     if (!seen) {
-      // Small delay so the page renders first
       const timer = setTimeout(() => {
-        setDrawerOpen(true);
+        if (window.innerWidth < 768) {
+          setDrawerOpen(true);
+        }
         localStorage.setItem(key, '1');
       }, 800);
       return () => clearTimeout(timer);

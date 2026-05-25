@@ -2,14 +2,14 @@ import './globals.css';
 import Providers from '@/components/layout/Providers';
 
 export const metadata = {
-  title: 'MokoNodes — منصة إدارة المهام الذكية',
+  title: 'MokoNodes - منصة ذكية لإدارة المهام، تدوين الملاحظات، وبناء الخرائط الذهنية',
   description:
-    'حوّل أفكارك إلى خرائط بصرية تفاعلية. منصة ذكية لإدارة المهام والأهداف باستخدام العُقد والروابط المترابطة.',
-  keywords: 'إدارة مهام, خرائط ذهنية, عقد, MokoNodes, مهام ذكية',
+    'موكو برو, MokoNodes - منصة ذكية لإدارة المهام وتدوين ملاحظات ذكية وبناء خرائط ذهنية تفاعلية لزيادة إنتاجيتك.',
+  keywords: 'موكو برو, MokoNodes, خرائط ذهنية, إدارة المهام, ملاحظات ذكية, إنتاجية',
   authors: [{ name: 'MokoNodes' }],
   openGraph: {
-    title: 'MokoNodes — منصة إدارة المهام الذكية',
-    description: 'حوّل أفكارك إلى خرائط بصرية تفاعلية',
+    title: 'MokoNodes - منصة ذكية لإدارة المهام، تدوين الملاحظات، وبناء الخرائط الذهنية',
+    description: 'موكو برو, MokoNodes - منصة ذكية لإدارة المهام وتدوين ملاحظات ذكية وبناء خرائط ذهنية تفاعلية لزيادة إنتاجيتك.',
     url: 'https://mokonodes.online',
     siteName: 'MokoNodes',
     locale: 'ar_SA',

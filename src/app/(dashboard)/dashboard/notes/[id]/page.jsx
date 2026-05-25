@@ -14,9 +14,9 @@ export default function NoteEditorPage({ params }) {
   const [title, setTitle] = useState('');
   const [saving, setSaving] = useState(false);
 
-  // استخدام Ref للحفاظ على أحدث القيم لاستخدامها عند الخروج المفاجئ (Unmount)
   const currentDataRef = useRef({ title: '', content: '' });
   const isDirtyRef = useRef(false);
+  const savePromiseRef = useRef(null);
 
   useEffect(() => {
     if (!noteId) return;
@@ -48,21 +48,28 @@ export default function NoteEditorPage({ params }) {
   };
 
   // دالة الحفظ الفوري
-  const handleSaveImmediately = useCallback(async () => {
+  const handleSaveImmediately = useCallback(() => {
     if (isDirtyRef.current) {
       setSaving(true);
-      try {
-        await updateNote(noteId, {
-          title: currentDataRef.current.title,
-          content: currentDataRef.current.content,
+      isDirtyRef.current = false;
+      
+      const promise = updateNote(noteId, {
+        title: currentDataRef.current.title,
+        content: currentDataRef.current.content,
+      })
+        .catch((err) => {
+          console.error('خطأ في الحفظ:', err);
+          isDirtyRef.current = true;
+        })
+        .finally(() => {
+          setSaving(false);
+          savePromiseRef.current = null;
         });
-        isDirtyRef.current = false;
-      } catch (err) {
-        console.error('خطأ في الحفظ:', err);
-      } finally {
-        setSaving(false);
-      }
+
+      savePromiseRef.current = promise;
+      return promise;
     }
+    return savePromiseRef.current || Promise.resolve();
   }, [noteId]);
 
   // الحفظ التلقائي الزمني (كل ثانية)

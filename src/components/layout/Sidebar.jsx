@@ -24,6 +24,16 @@ export default function Sidebar() {
       path: '/dashboard/tasks',
       icon: '✅',
     },
+    {
+      name: 'المدونة',
+      path: '/blog',
+      icon: '📰',
+    },
+    {
+      name: 'الإعدادات',
+      path: '/settings',
+      icon: '⚙️',
+    },
   ];
 
   return (
