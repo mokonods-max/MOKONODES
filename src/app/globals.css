@@ -1,0 +1,353 @@
+@import 'tailwindcss';
+
+/* ══════════════════════════════════════════════
+   MokoNodes — Glassmorphism Design System
+   اللغة الافتراضية: العربية (RTL)
+   ══════════════════════════════════════════════ */
+
+@layer base {
+  :root {
+    /* ─── Glass Tokens ─── */
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-bg-strong: rgba(255, 255, 255, 0.22);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-border-strong: rgba(255, 255, 255, 0.35);
+    --glass-blur: 20px;
+    --glass-blur-strong: 40px;
+
+    /* ─── Color Palette ─── */
+    --color-primary: #6C63FF;
+    --color-primary-light: #8B83FF;
+    --color-primary-dark: #4F46E5;
+    --color-accent: #06D6A0;
+    --color-accent-light: #34E4B8;
+    --color-warning: #FFD166;
+    --color-danger: #EF476F;
+    --color-success: #06D6A0;
+
+    /* ─── Canvas ─── */
+    --canvas-bg: #0F0F1A;
+    --canvas-dot: rgba(108, 99, 255, 0.15);
+    --canvas-dot-size: 1.5px;
+    --canvas-dot-gap: 28px;
+
+    /* ─── Surface ─── */
+    --surface-dark: #13131F;
+    --surface-card: rgba(19, 19, 31, 0.85);
+    --surface-elevated: rgba(30, 30, 50, 0.9);
+
+    /* ─── Text ─── */
+    --text-primary: #F1F1F6;
+    --text-secondary: #9B9BB4;
+    --text-muted: #5D5D7A;
+
+    /* ─── Shadows ─── */
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.37);
+    --shadow-glass-sm: 0 4px 16px rgba(0, 0, 0, 0.25);
+    --shadow-glow: 0 0 30px rgba(108, 99, 255, 0.2);
+    --shadow-glow-accent: 0 0 30px rgba(6, 214, 160, 0.2);
+
+    /* ─── Radius ─── */
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    /* ─── Transitions ─── */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  body {
+    font-family: 'Tajawal', 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--canvas-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* ─── Custom Scrollbar ─── */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--text-muted);
+    border-radius: 999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Glassmorphism Utility Classes
+   ══════════════════════════════════════════════ */
+
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-strong {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(var(--glass-blur-strong));
+    -webkit-backdrop-filter: blur(var(--glass-blur-strong));
+    border: 1px solid var(--glass-border-strong);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-glass);
+  }
+
+  .glass-card {
+    background: var(--surface-card);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-glass);
+    transition: all var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    border-color: var(--glass-border-strong);
+    box-shadow: var(--shadow-glass), var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+
+  .glass-input {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    padding: 12px 16px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: all var(--transition-smooth);
+    width: 100%;
+  }
+
+  .glass-input::placeholder {
+    color: var(--text-muted);
+  }
+
+  .glass-input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.15);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .glass-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-button::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+  }
+
+  .glass-button:hover::before {
+    opacity: 1;
+  }
+
+  .glass-button-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+    color: white;
+    box-shadow: 0 4px 20px rgba(108, 99, 255, 0.35);
+  }
+
+  .glass-button-primary:hover {
+    box-shadow: 0 6px 30px rgba(108, 99, 255, 0.5);
+    transform: translateY(-2px);
+  }
+
+  .glass-button-primary:active {
+    transform: translateY(0);
+  }
+
+  .glass-button-ghost {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+  }
+
+  .glass-button-ghost:hover {
+    background: var(--glass-bg-strong);
+    border-color: var(--glass-border-strong);
+  }
+
+  /* ─── Node Status Badges ─── */
+  .badge-todo {
+    background: rgba(108, 99, 255, 0.15);
+    color: var(--color-primary-light);
+    border: 1px solid rgba(108, 99, 255, 0.3);
+  }
+
+  .badge-in-progress {
+    background: rgba(255, 209, 102, 0.15);
+    color: var(--color-warning);
+    border: 1px solid rgba(255, 209, 102, 0.3);
+  }
+
+  .badge-completed {
+    background: rgba(6, 214, 160, 0.15);
+    color: var(--color-accent);
+    border: 1px solid rgba(6, 214, 160, 0.3);
+  }
+
+  .badge-overdue {
+    background: rgba(239, 71, 111, 0.15);
+    color: var(--color-danger);
+    border: 1px solid rgba(239, 71, 111, 0.3);
+  }
+}
+
+/* ══════════════════════════════════════════════
+   Canvas Dot Grid Background
+   ══════════════════════════════════════════════ */
+
+.canvas-grid {
+  background-color: var(--canvas-bg);
+  background-image: radial-gradient(
+    circle,
+    var(--canvas-dot) var(--canvas-dot-size),
+    transparent var(--canvas-dot-size)
+  );
+  background-size: var(--canvas-dot-gap) var(--canvas-dot-gap);
+}
+
+/* ══════════════════════════════════════════════
+   React Flow Overrides
+   ══════════════════════════════════════════════ */
+
+.react-flow__node {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.react-flow__edge-path {
+  stroke: var(--color-primary) !important;
+  stroke-width: 2px;
+}
+
+.react-flow__edge-path:hover {
+  stroke: var(--color-accent) !important;
+  stroke-width: 3px;
+}
+
+.react-flow__handle {
+  width: 10px !important;
+  height: 10px !important;
+  background: var(--color-primary) !important;
+  border: 2px solid var(--surface-dark) !important;
+  border-radius: 50% !important;
+}
+
+.react-flow__handle:hover {
+  background: var(--color-accent) !important;
+  box-shadow: var(--shadow-glow-accent);
+}
+
+.react-flow__minimap {
+  background: var(--surface-card) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.react-flow__controls {
+  border: 1px solid var(--glass-border) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background: var(--surface-card) !important;
+  border-bottom: 1px solid var(--glass-border) !important;
+  fill: var(--text-secondary) !important;
+}
+
+.react-flow__controls-button:hover {
+  background: var(--glass-bg-strong) !important;
+  fill: var(--text-primary) !important;
+}
+
+/* ══════════════════════════════════════════════
+   Animations
+   ══════════════════════════════════════════════ */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(108, 99, 255, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(108, 99, 255, 0.4); }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 25%,
+    rgba(108, 99, 255, 0.08) 50%,
+    transparent 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
