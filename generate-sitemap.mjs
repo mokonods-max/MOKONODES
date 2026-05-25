@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { articles } from './src/data/articles.js';
 
-const baseUrl = 'https://mokonodes.online';
+const baseUrl = 'https://mokopro.online';
 
 const staticRoutes = [
   '',
@@ -11,6 +11,8 @@ const staticRoutes = [
   '/terms',
   '/blog',
   '/login',
+  '/dashboard',
+  '/settings'
 ];
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>

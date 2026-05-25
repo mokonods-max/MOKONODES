@@ -5,12 +5,12 @@ export const metadata = {
   title: 'MokoNodes - منصة ذكية لإدارة المهام، تدوين الملاحظات، وبناء الخرائط الذهنية',
   description:
     'موكو برو, MokoNodes - منصة ذكية لإدارة المهام وتدوين ملاحظات ذكية وبناء خرائط ذهنية تفاعلية لزيادة إنتاجيتك.',
-  keywords: 'موكو برو, MokoNodes, خرائط ذهنية, إدارة المهام, ملاحظات ذكية, إنتاجية',
+  keywords: 'موكو برو, MokoNodes, خرائط ذهنية, إدارة المهام, تدوين ملاحظات, ملاحظات ذكية, إنتاجية',
   authors: [{ name: 'MokoNodes' }],
   openGraph: {
     title: 'MokoNodes - منصة ذكية لإدارة المهام، تدوين الملاحظات، وبناء الخرائط الذهنية',
     description: 'موكو برو, MokoNodes - منصة ذكية لإدارة المهام وتدوين ملاحظات ذكية وبناء خرائط ذهنية تفاعلية لزيادة إنتاجيتك.',
-    url: 'https://mokonodes.online',
+    url: 'https://mokopro.online',
     siteName: 'MokoNodes',
     locale: 'ar_SA',
     type: 'website',

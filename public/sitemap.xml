@@ -2,155 +2,169 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
     <url>
-      <loc>https://mokonodes.online</loc>
-      <lastmod>2026-05-25T21:39:44.597Z</lastmod>
+      <loc>https://mokopro.online</loc>
+      <lastmod>2026-05-25T21:59:16.960Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>1.0</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/about</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/about</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/contact</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/contact</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/privacy</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/privacy</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/terms</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/terms</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/blog</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/login</loc>
-      <lastmod>2026-05-25T21:39:44.598Z</lastmod>
+      <loc>https://mokopro.online/login</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://mokopro.online/dashboard</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
+      <changefreq>weekly</changefreq>
+      <priority>0.8</priority>
+    </url>
+  
+    <url>
+      <loc>https://mokopro.online/settings</loc>
+      <lastmod>2026-05-25T21:59:16.962Z</lastmod>
       <changefreq>weekly</changefreq>
       <priority>0.8</priority>
     </url>
   
   
     <url>
-      <loc>https://mokonodes.online/blog/mind-maps-for-programmers</loc>
+      <loc>https://mokopro.online/blog/mind-maps-for-programmers</loc>
       <lastmod>2026-05-20T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/daily-task-organization</loc>
+      <loc>https://mokopro.online/blog/daily-task-organization</loc>
       <lastmod>2026-05-18T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/digital-vs-paper-notes-2026</loc>
+      <loc>https://mokopro.online/blog/digital-vs-paper-notes-2026</loc>
       <lastmod>2026-05-15T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/programming-project-planning</loc>
+      <loc>https://mokopro.online/blog/programming-project-planning</loc>
       <lastmod>2026-05-12T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/visual-thinking-with-mokonodes</loc>
+      <loc>https://mokopro.online/blog/visual-thinking-with-mokonodes</loc>
       <lastmod>2026-05-10T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/pomodoro-with-tasks</loc>
+      <loc>https://mokopro.online/blog/pomodoro-with-tasks</loc>
       <lastmod>2026-05-08T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/mind-maps-for-learning</loc>
+      <loc>https://mokopro.online/blog/mind-maps-for-learning</loc>
       <lastmod>2026-05-05T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/personal-knowledge-management</loc>
+      <loc>https://mokopro.online/blog/personal-knowledge-management</loc>
       <lastmod>2026-05-03T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/common-project-planning-mistakes</loc>
+      <loc>https://mokopro.online/blog/common-project-planning-mistakes</loc>
       <lastmod>2026-05-01T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/visual-thinking-complex-to-simple</loc>
+      <loc>https://mokopro.online/blog/visual-thinking-complex-to-simple</loc>
       <lastmod>2026-04-28T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/cloud-sync-importance</loc>
+      <loc>https://mokopro.online/blog/cloud-sync-importance</loc>
       <lastmod>2026-04-25T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/smart-workflow-organization</loc>
+      <loc>https://mokopro.online/blog/smart-workflow-organization</loc>
       <lastmod>2026-04-22T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/overcoming-procrastination</loc>
+      <loc>https://mokopro.online/blog/overcoming-procrastination</loc>
       <lastmod>2026-04-18T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/future-of-productivity-tools</loc>
+      <loc>https://mokopro.online/blog/future-of-productivity-tools</loc>
       <lastmod>2026-04-15T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
     </url>
   
     <url>
-      <loc>https://mokonodes.online/blog/strategic-personal-planning</loc>
+      <loc>https://mokopro.online/blog/strategic-personal-planning</loc>
       <lastmod>2026-04-12T00:00:00.000Z</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.7</priority>
