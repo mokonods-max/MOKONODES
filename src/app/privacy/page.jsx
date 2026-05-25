@@ -112,14 +112,16 @@ export default function PrivacyPage() {
 
       <Section title="4. ملفات تعريف الارتباط (Cookies)">
         <p>
-          نستخدم الكوكيز للأغراض التالية:
+          نستخدم نحن والجهات الخارجية، بما في ذلك Google، ملفات تعريف الارتباط لتقديم الإعلانات بناءً على زياراتك السابقة لموقعنا أو لمواقع أخرى على الإنترنت. يمكّن استخدام ملفات تعريف الارتباط للإعلانات شركة Google وشركاءها من عرض الإعلانات للمستخدمين استناداً إلى زياراتهم لموقعنا و/أو مواقع أخرى. يمكنك إلغاء الاشتراك في الإعلانات المخصصة عن طريق زيارة{' '}
+          <a
+            href="https://www.google.com/settings/ads"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--color-primary-light)' }}
+          >
+            إعدادات الإعلانات الخاصة بـ Google
+          </a>.
         </p>
-        <ul style={{ marginRight: 20, marginTop: 10 }}>
-          <li style={{ marginBottom: 8 }}><strong>الضرورية:</strong> للحفاظ على جلسة تسجيل دخولك.</li>
-          <li style={{ marginBottom: 8 }}><strong>التحليلية:</strong> Google Analytics لفهم كيفية استخدام التطبيق.</li>
-          <li style={{ marginBottom: 8 }}><strong>الإعلانية:</strong> Google AdSense قد يستخدم الكوكيز لعرض إعلانات مخصصة.</li>
-        </ul>
-        <p style={{ marginTop: 12 }}>يمكنك تعطيل الكوكيز من إعدادات متصفحك، لكن ذلك قد يؤثر على بعض وظائف التطبيق.</p>
       </Section>
 
       <Section title="5. حقوقك">

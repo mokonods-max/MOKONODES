@@ -65,6 +65,9 @@ export default function TermsPage() {
           </Section>
 
           <Section title="3. التسجيل والحساب">
+            <p style={{ marginBottom: 12, padding: '12px 16px', background: 'rgba(255,200,0,0.08)', border: '1px solid rgba(255,200,0,0.2)', borderRadius: 10 }}>
+              يجب أن يكون عمرك 13 عاماً أو أكثر لإنشاء حساب واستخدام خدماتنا.
+            </p>
             <p>لاستخدام الخدمات الكاملة، يجب إنشاء حساب. أنت مسؤول عن:</p>
             <ul style={{ marginRight: 20, marginTop: 10 }}>
               <li style={{ marginBottom: 8 }}>الحفاظ على سرية بيانات دخولك.</li>

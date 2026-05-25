@@ -1,22 +1,8 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' });
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    // Simulate form submission
-    await new Promise((res) => setTimeout(res, 1200));
-    setSubmitted(true);
-    setLoading(false);
-  };
-
   return (
     <div style={{ minHeight: '100vh', background: 'var(--canvas-bg)', direction: 'rtl' }}>
       <header style={{ position: 'sticky', top: 0, zIndex: 50, background: 'rgba(15,15,26,0.92)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--glass-border)' }}>
@@ -41,7 +27,7 @@ export default function ContactPage() {
         {/* Info Cards */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 14, marginBottom: 40 }}>
           {[
-            { icon: '📧', title: 'البريد الإلكتروني', desc: 'support@mokonodes.online' },
+            { icon: '📧', title: 'البريد الإلكتروني', desc: 'mokonods@gmail.com' },
             { icon: '⏱️', title: 'وقت الاستجابة', desc: 'خلال 24-48 ساعة عمل' },
             { icon: '🌐', title: 'الدعم', desc: 'العربية والإنجليزية' },
           ].map((info) => (
@@ -60,105 +46,94 @@ export default function ContactPage() {
         </div>
 
         {/* Form */}
-        {submitted ? (
-          <div style={{
-            textAlign: 'center',
-            background: 'rgba(6,214,160,0.1)',
-            border: '1px solid rgba(6,214,160,0.3)',
-            borderRadius: 'var(--radius-lg)',
-            padding: '48px 32px',
-          }}>
-            <div style={{ fontSize: 48, marginBottom: 16 }}>✅</div>
-            <h2 style={{ fontSize: 22, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 8 }}>تم الإرسال بنجاح!</h2>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: 24 }}>سنرد عليك خلال 24-48 ساعة على بريدك الإلكتروني.</p>
-            <button
-              onClick={() => { setSubmitted(false); setForm({ name: '', email: '', subject: '', message: '' }); }}
-              style={{ padding: '10px 24px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: 10, color: 'var(--text-primary)', fontSize: 14, cursor: 'pointer' }}
-            >
-              إرسال رسالة أخرى
-            </button>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} style={{
+        {/*
+          PASTE YOUR FORMSPREE ID BELOW:
+          Replace 'YOUR_FORM_ID' in the action URL with your actual Formspree endpoint ID.
+        */}
+        <form 
+          action="https://formspree.io/f/YOUR_FORM_ID" 
+          method="POST" 
+          style={{
             background: 'var(--surface-card)',
             border: '1px solid var(--glass-border)',
             borderRadius: 'var(--radius-xl)',
             padding: '36px 32px',
-          }}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
-              {[
-                { key: 'name', label: 'الاسم', placeholder: 'اسمك الكريم', type: 'text' },
-                { key: 'email', label: 'البريد الإلكتروني', placeholder: 'example@email.com', type: 'email' },
-              ].map((field) => (
-                <div key={field.key}>
-                  <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>{field.label}</label>
-                  <input
-                    type={field.type}
-                    required
-                    placeholder={field.placeholder}
-                    value={form[field.key]}
-                    onChange={(e) => setForm({ ...form, [field.key]: e.target.value })}
-                    className="glass-input"
-                    style={{ fontSize: 14 }}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>الموضوع</label>
-              <select
-                value={form.subject}
-                onChange={(e) => setForm({ ...form, subject: e.target.value })}
+          }}
+        >
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>الاسم</label>
+              <input
+                type="text"
+                name="name"
                 required
+                placeholder="اسمك الكريم"
                 className="glass-input"
                 style={{ fontSize: 14 }}
-              >
-                <option value="">اختر الموضوع</option>
-                <option value="support">دعم تقني</option>
-                <option value="feedback">اقتراح أو تعليق</option>
-                <option value="bug">الإبلاغ عن خطأ</option>
-                <option value="business">استفسار تجاري</option>
-                <option value="other">أخرى</option>
-              </select>
-            </div>
-
-            <div style={{ marginBottom: '24px' }}>
-              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>الرسالة</label>
-              <textarea
-                required
-                rows={5}
-                placeholder="اكتب رسالتك هنا..."
-                value={form.message}
-                onChange={(e) => setForm({ ...form, message: e.target.value })}
-                className="glass-input"
-                style={{ fontSize: 14, resize: 'vertical', fontFamily: 'inherit' }}
               />
             </div>
+            <div>
+              <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>البريد الإلكتروني</label>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="example@email.com"
+                className="glass-input"
+                style={{ fontSize: 14 }}
+              />
+            </div>
+          </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '14px',
-                background: loading ? 'var(--glass-bg)' : 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
-                color: 'white',
-                border: 'none',
-                borderRadius: 12,
-                fontWeight: 600,
-                fontSize: 15,
-                cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.7 : 1,
-                fontFamily: 'inherit',
-                transition: 'all 200ms',
-                boxShadow: loading ? 'none' : '0 6px 20px rgba(108,99,255,0.35)',
-              }}
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>الموضوع</label>
+            <select
+              name="subject"
+              required
+              className="glass-input"
+              style={{ fontSize: 14 }}
             >
-              {loading ? '⏳ جارٍ الإرسال...' : '📨 إرسال الرسالة'}
-            </button>
-          </form>
-        )}
+              <option value="">اختر الموضوع</option>
+              <option value="support">دعم تقني</option>
+              <option value="feedback">اقتراح أو تعليق</option>
+              <option value="bug">الإبلاغ عن خطأ</option>
+              <option value="business">استفسار تجاري</option>
+              <option value="other">أخرى</option>
+            </select>
+          </div>
+
+          <div style={{ marginBottom: '24px' }}>
+            <label style={{ display: 'block', fontSize: 13, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 6 }}>الرسالة</label>
+            <textarea
+              name="message"
+              required
+              rows={5}
+              placeholder="اكتب رسالتك هنا..."
+              className="glass-input"
+              style={{ fontSize: 14, resize: 'vertical', fontFamily: 'inherit' }}
+            />
+          </div>
+
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              padding: '14px',
+              background: 'linear-gradient(135deg, var(--color-primary), var(--color-primary-dark))',
+              color: 'white',
+              border: 'none',
+              borderRadius: 12,
+              fontWeight: 600,
+              fontSize: 15,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              transition: 'all 200ms',
+              boxShadow: '0 6px 20px rgba(108,99,255,0.35)',
+            }}
+          >
+            📨 إرسال الرسالة
+          </button>
+        </form>
       </main>
 
       <footer style={{ borderTop: '1px solid var(--glass-border)', padding: '32px 24px', textAlign: 'center' }}>
