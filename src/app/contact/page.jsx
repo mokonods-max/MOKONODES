@@ -51,7 +51,7 @@ export default function ContactPage() {
           Replace 'YOUR_FORM_ID' in the action URL with your actual Formspree endpoint ID.
         */}
         <form 
-          action="https://formspree.io/f/YOUR_FORM_ID" 
+          action="https://formspree.io/f/maqkpdbg" 
           method="POST" 
           style={{
             background: 'var(--surface-card)',
