@@ -13,6 +13,19 @@ import {
 import { db } from './firebase';
 
 // ══════════════════════════════════════════════
+//  مساعد: معالجة أخطاء onSnapshot
+// ══════════════════════════════════════════════
+function handleSnapshotError(context, error) {
+  console.error(`[Firestore] خطأ في ${context}:`, error.message);
+  // إذا كان الخطأ بسبب index مفقود، يطبع رابط الإصلاح
+  if (error.message?.includes('index')) {
+    console.error(
+      `[Firestore] يحتاج إلى فهرس مركّب (Composite Index). أنشئه من Firebase Console أو من firestore.indexes.json`
+    );
+  }
+}
+
+// ══════════════════════════════════════════════
 //  خرائط العُقد (Maps)
 // ══════════════════════════════════════════════
 
@@ -35,10 +48,17 @@ export function subscribeMaps(userId, callback) {
     where('userId', '==', userId),
     orderBy('createdAt', 'desc')
   );
-  return onSnapshot(q, (snapshot) => {
-    const maps = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-    callback(maps);
-  });
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const maps = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      callback(maps);
+    },
+    (error) => {
+      handleSnapshotError('subscribeMaps', error);
+      callback([]); // إرجاع مصفوفة فارغة بدلاً من الصمت
+    }
+  );
 }
 
 // ─── العُقد (Nodes) ───
@@ -65,13 +85,20 @@ export async function deleteNode(mapId, nodeId) {
 }
 
 export function subscribeNodes(mapId, callback) {
-  return onSnapshot(collection(db, 'maps', mapId, 'nodes'), (snapshot) => {
-    const nodes = snapshot.docs.map((d) => ({
-      id: d.id,
-      ...d.data(),
-    }));
-    callback(nodes);
-  });
+  return onSnapshot(
+    collection(db, 'maps', mapId, 'nodes'),
+    (snapshot) => {
+      const nodes = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data(),
+      }));
+      callback(nodes);
+    },
+    (error) => {
+      handleSnapshotError('subscribeNodes', error);
+      callback([]);
+    }
+  );
 }
 
 // ─── الروابط (Edges) ───
@@ -91,16 +118,23 @@ export async function deleteEdge(mapId, edgeId) {
 }
 
 export function subscribeEdges(mapId, callback) {
-  return onSnapshot(collection(db, 'maps', mapId, 'edges'), (snapshot) => {
-    const edges = snapshot.docs.map((d) => ({
-      id: d.id,
-      source: d.data().sourceNodeId,
-      target: d.data().targetNodeId,
-      sourceHandle: d.data().sourceHandle || null,
-      targetHandle: d.data().targetHandle || null,
-    }));
-    callback(edges);
-  });
+  return onSnapshot(
+    collection(db, 'maps', mapId, 'edges'),
+    (snapshot) => {
+      const edges = snapshot.docs.map((d) => ({
+        id: d.id,
+        source: d.data().sourceNodeId,
+        target: d.data().targetNodeId,
+        sourceHandle: d.data().sourceHandle || null,
+        targetHandle: d.data().targetHandle || null,
+      }));
+      callback(edges);
+    },
+    (error) => {
+      handleSnapshotError('subscribeEdges', error);
+      callback([]);
+    }
+  );
 }
 
 // ══════════════════════════════════════════════
@@ -135,20 +169,34 @@ export function subscribeNotes(userId, callback) {
     where('userId', '==', userId),
     orderBy('updatedAt', 'desc')
   );
-  return onSnapshot(q, (snapshot) => {
-    const notes = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-    callback(notes);
-  });
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const notes = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      callback(notes);
+    },
+    (error) => {
+      handleSnapshotError('subscribeNotes', error);
+      callback([]);
+    }
+  );
 }
 
 export function subscribeNote(noteId, callback) {
-  return onSnapshot(doc(db, 'notes', noteId), (docSnap) => {
-    if (docSnap.exists()) {
-      callback({ id: docSnap.id, ...docSnap.data() });
-    } else {
+  return onSnapshot(
+    doc(db, 'notes', noteId),
+    (docSnap) => {
+      if (docSnap.exists()) {
+        callback({ id: docSnap.id, ...docSnap.data() });
+      } else {
+        callback(null);
+      }
+    },
+    (error) => {
+      handleSnapshotError('subscribeNote', error);
       callback(null);
     }
-  });
+  );
 }
 
 // ══════════════════════════════════════════════
@@ -174,20 +222,34 @@ export function subscribeTaskLists(userId, callback) {
     where('userId', '==', userId),
     orderBy('createdAt', 'desc')
   );
-  return onSnapshot(q, (snapshot) => {
-    const lists = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-    callback(lists);
-  });
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const lists = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      callback(lists);
+    },
+    (error) => {
+      handleSnapshotError('subscribeTaskLists', error);
+      callback([]);
+    }
+  );
 }
 
 export function subscribeTaskList(listId, callback) {
-  return onSnapshot(doc(db, 'task_lists', listId), (docSnap) => {
-    if (docSnap.exists()) {
-      callback({ id: docSnap.id, ...docSnap.data() });
-    } else {
+  return onSnapshot(
+    doc(db, 'task_lists', listId),
+    (docSnap) => {
+      if (docSnap.exists()) {
+        callback({ id: docSnap.id, ...docSnap.data() });
+      } else {
+        callback(null);
+      }
+    },
+    (error) => {
+      handleSnapshotError('subscribeTaskList', error);
       callback(null);
     }
-  });
+  );
 }
 
 // ─── المهام الفرعية (Tasks) ───
@@ -213,8 +275,15 @@ export function subscribeTasks(listId, callback) {
     collection(db, 'task_lists', listId, 'tasks'),
     orderBy('createdAt', 'asc')
   );
-  return onSnapshot(q, (snapshot) => {
-    const tasks = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-    callback(tasks);
-  });
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const tasks = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+      callback(tasks);
+    },
+    (error) => {
+      handleSnapshotError('subscribeTasks', error);
+      callback([]);
+    }
+  );
 }

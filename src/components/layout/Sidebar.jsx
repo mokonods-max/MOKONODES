@@ -27,8 +27,9 @@ export default function Sidebar() {
   ];
 
   return (
+    // Hidden on mobile — replaced by the hamburger drawer
     <div
-      className="flex-shrink-0 border-l flex flex-row md:flex-col gap-2 p-2 md:p-4 w-full md:w-64 overflow-x-auto md:overflow-visible"
+      className="hidden md:flex flex-shrink-0 border-l flex-col gap-2 p-4 w-64"
       style={{
         background: 'var(--surface-dark)',
         borderColor: 'var(--glass-border)',
@@ -43,7 +44,7 @@ export default function Sidebar() {
           <button
             key={link.path}
             onClick={() => router.push(link.path)}
-            className="flex-1 md:flex-none flex items-center justify-center md:justify-start gap-2 md:gap-3 px-3 md:px-4 py-3 rounded-xl transition-all relative overflow-hidden"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl transition-all relative overflow-hidden"
             style={{
               color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
             }}
@@ -59,8 +60,8 @@ export default function Sidebar() {
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               />
             )}
-            <span className="relative z-10 text-xl md:text-2xl">{link.icon}</span>
-            <span className="relative z-10 font-medium text-sm md:text-base hidden sm:block">
+            <span className="relative z-10 text-2xl">{link.icon}</span>
+            <span className="relative z-10 font-medium text-base">
               {link.name}
             </span>
           </button>
@@ -68,7 +69,7 @@ export default function Sidebar() {
       })}
 
       {/* ─── Sidebar Ad (Desktop only) ─── */}
-      <div className="hidden md:flex mt-auto pt-4 border-t flex-col items-center gap-4 w-full" style={{ borderColor: 'var(--glass-border)' }}>
+      <div className="mt-auto pt-4 border-t flex flex-col items-center gap-4 w-full" style={{ borderColor: 'var(--glass-border)' }}>
         <AdPlaceholder type="mediumRectangle" className="!w-full !max-w-[250px] !h-[250px]" />
       </div>
     </div>

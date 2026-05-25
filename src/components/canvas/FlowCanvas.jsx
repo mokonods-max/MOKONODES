@@ -46,6 +46,7 @@ function FlowCanvasInner({ mapId }) {
   const { screenToFlowPosition, getViewport } = useReactFlow();
   const [selectedNodes, setSelectedNodes] = useState([]);
   const [selectedEdges, setSelectedEdges] = useState([]);
+  const [tipModalOpen, setTipModalOpen] = useState(false);
 
   useOnSelectionChange({
     onChange: ({ nodes, edges }) => {
@@ -177,27 +178,34 @@ function FlowCanvasInner({ mapId }) {
     [mapId]
   );
 
+  const tips = [
+    { icon: '✏️', title: 'تغيير الاسم', desc: 'انقر مرتين على اسم العقدة لتعديله.' },
+    { icon: '🗑️', title: 'حذف سلك', desc: 'انقر مرتين على السلك لحذفه مباشرة.' },
+    { icon: '☑️', title: 'تحديد متعدد', desc: 'اسحب بإصبعين في اللوحة لتحديد أكثر من عنصر.' },
+    { icon: '🔗', title: 'الربط الحر', desc: 'اسحب من نقطة العقدة لربطها بأي عقدة أخرى.' },
+  ];
+
   return (
     <div className="w-full h-full relative" style={{ background: 'var(--canvas-bg)' }}>
-      
+
       {/* ─── Topbar: Actions ─── */}
       <div className="absolute top-4 right-4 z-50 flex items-center gap-3">
         <button
           onClick={handleAddNodeCenter}
-          className="glass-button text-sm py-2 px-4 !rounded-xl shadow-lg !bg-[var(--color-primary)] hover:!bg-[var(--color-primary-dark)] text-white transition-all flex items-center gap-2 font-bold"
+          className="canvas-top-btn canvas-top-btn-primary"
         >
           <span className="text-lg">+</span>
           إضافة عقدة
         </button>
         <button
           onClick={() => router.push('/dashboard')}
-          className="glass-button glass-button-ghost text-sm py-2 px-4 !rounded-xl shadow-lg hover:!bg-white/10 text-white transition-all"
+          className="canvas-top-btn canvas-top-btn-ghost"
         >
           حفظ وخروج
         </button>
       </div>
 
-      {/* ─── Instructions Panel (Top Left) ─── */}
+      {/* ─── Instructions Panel (Desktop only) ─── */}
       <div className="absolute top-4 left-4 z-50 glass-strong p-3 rounded-xl max-w-[200px] md:max-w-[250px] pointer-events-none hidden sm:block shadow-lg border border-[var(--glass-border)]">
         <h3 className="text-xs md:text-sm font-bold mb-2 flex items-center gap-2 text-[var(--color-accent)]">
           <span>💡</span> تعليمات سريعة
@@ -209,6 +217,64 @@ function FlowCanvasInner({ mapId }) {
           <li><strong>الربط الحر:</strong> يمكنك سحب الأسلاك بين أي نقطتين بحرية.</li>
         </ul>
       </div>
+
+      {/* ─── Mobile 💡 Tip Button ─── */}
+      <button
+        className="sm:hidden absolute bottom-24 left-4 z-50 mobile-tip-btn"
+        onClick={() => setTipModalOpen(true)}
+        aria-label="تعليمات"
+      >
+        💡
+      </button>
+
+      {/* ─── Mobile Tip Modal ─── */}
+      <AnimatePresence>
+        {tipModalOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="sm:hidden fixed inset-0 z-[200] flex items-end justify-center pb-8 px-4"
+            style={{ background: 'rgba(0,0,0,0.6)' }}
+            onClick={() => setTipModalOpen(false)}
+          >
+            <motion.div
+              initial={{ y: 80, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 80, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="glass-strong rounded-2xl p-5 w-full max-w-sm"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-bold text-base" style={{ color: 'var(--color-accent)' }}>
+                  💡 تعليمات سريعة
+                </h3>
+                <button
+                  onClick={() => setTipModalOpen(false)}
+                  className="text-xl"
+                  style={{ color: 'var(--text-muted)' }}
+                >✕</button>
+              </div>
+              <div className="space-y-3">
+                {tips.map((tip) => (
+                  <div key={tip.title} className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">{tip.icon}</span>
+                    <div>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                        {tip.title}
+                      </p>
+                      <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                        {tip.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <ReactFlow
         nodes={nodes}
@@ -247,7 +313,7 @@ function FlowCanvasInner({ mapId }) {
           position="top-right"
           nodeColor={() => 'var(--color-primary)'}
           maskColor="rgba(0, 0, 0, 0.5)"
-          className="glass-strong !m-6 !mt-24 !hidden lg:!block" // shifted down to avoid top buttons
+          className="glass-strong !m-6 !mt-24 !hidden lg:!block"
           style={{ borderRadius: 'var(--radius-lg)' }}
         />
         <Background

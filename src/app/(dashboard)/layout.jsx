@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import useAuthStore from '@/store/useAuthStore';
 import Sidebar from '@/components/layout/Sidebar';
@@ -9,8 +9,45 @@ import AdPlaceholder from '@/components/ui/AdPlaceholder';
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, loading, logout } = useAuthStore();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const drawerRef = useRef(null);
 
+  // ─── First-Login Onboarding: Auto-open drawer ───
+  useEffect(() => {
+    if (!user) return;
+    const key = `moko_first_visit_${user.uid}`;
+    const seen = localStorage.getItem(key);
+    if (!seen) {
+      // Small delay so the page renders first
+      const timer = setTimeout(() => {
+        setDrawerOpen(true);
+        localStorage.setItem(key, '1');
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [user]);
+
+  // ─── Close drawer on route change ───
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  // ─── Close drawer on outside click ───
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (drawerRef.current && !drawerRef.current.contains(e.target)) {
+        setDrawerOpen(false);
+      }
+    }
+    if (drawerOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [drawerOpen]);
+
+  // ─── Auth Guard ───
   useEffect(() => {
     if (!loading && !user) {
       router.push('/login');
@@ -46,11 +83,20 @@ export default function DashboardLayout({ children }) {
 
   if (!user) return null;
 
+  const navLinks = [
+    { name: 'الخرائط', path: '/dashboard', icon: '🗺️' },
+    { name: 'الملاحظات', path: '/dashboard/notes', icon: '📝' },
+    { name: 'المهام', path: '/dashboard/tasks', icon: '✅' },
+    { name: 'المدونة', path: '/blog', icon: '📰' },
+    { name: 'الإعدادات', path: '/settings', icon: '⚙️' },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--canvas-bg)' }}>
-      {/* ─── Top Bar ─── */}
+
+      {/* ─── Desktop Top Bar (hidden on mobile) ─── */}
       <header
-        className="glass-strong sticky top-0 z-50 flex items-center justify-between px-4 md:px-6 py-3 border-b"
+        className="glass-strong sticky top-0 z-50 hidden md:flex items-center justify-between px-4 md:px-6 py-3 border-b"
         style={{ borderColor: 'var(--glass-border)' }}
       >
         <div className="flex items-center gap-2 md:gap-3">
@@ -88,14 +134,133 @@ export default function DashboardLayout({ children }) {
         </div>
       </header>
 
+      {/* ─── Mobile Floating Header ─── */}
+      <header className="mobile-float-header md:hidden">
+        {/* Logo + Name */}
+        <div className="mobile-float-logo-group">
+          <div className="mobile-float-logo">
+            <span className="text-sm font-bold text-white">M</span>
+          </div>
+          <span className="mobile-float-title">MokoNodes</span>
+        </div>
+
+        {/* Hamburger */}
+        <button
+          id="hamburger-btn"
+          className="mobile-hamburger"
+          onClick={() => setDrawerOpen((v) => !v)}
+          aria-label="القائمة"
+        >
+          <span className={`hamburger-line ${drawerOpen ? 'rotate-45 translate-y-[7px]' : ''}`} />
+          <span className={`hamburger-line ${drawerOpen ? 'opacity-0' : ''}`} />
+          <span className={`hamburger-line ${drawerOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} />
+        </button>
+      </header>
+
+      {/* ─── Mobile Drawer Overlay ─── */}
+      <AnimatePresence>
+        {drawerOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="md:hidden fixed inset-0 z-[60]"
+              style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)' }}
+              onClick={() => setDrawerOpen(false)}
+            />
+
+            {/* Drawer Panel */}
+            <motion.div
+              key="drawer"
+              ref={drawerRef}
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+              className="md:hidden fixed top-0 right-0 h-full z-[70] mobile-drawer"
+            >
+              {/* Drawer Header */}
+              <div className="mobile-drawer-header">
+                <div className="mobile-float-logo">
+                  <span className="text-base font-bold text-white">M</span>
+                </div>
+                <span className="mobile-float-title text-lg">MokoNodes</span>
+                <button
+                  className="mobile-drawer-close"
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* User Info */}
+              <div className="mobile-drawer-user">
+                {user.photoURL && (
+                  <img
+                    src={user.photoURL}
+                    alt="avatar"
+                    className="w-9 h-9 rounded-full border-2"
+                    style={{ borderColor: 'var(--glass-border)' }}
+                  />
+                )}
+                <div>
+                  <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    {user.displayName || 'مستخدم'}
+                  </p>
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                    {user.email}
+                  </p>
+                </div>
+              </div>
+
+              {/* Nav Links */}
+              <nav className="mobile-drawer-nav">
+                {navLinks.map((link) => {
+                  const isActive =
+                    pathname === link.path ||
+                    (link.path !== '/dashboard' && pathname.startsWith(link.path));
+                  return (
+                    <button
+                      key={link.path}
+                      onClick={() => {
+                        setDrawerOpen(false);
+                        router.push(link.path);
+                      }}
+                      className={`mobile-drawer-link ${isActive ? 'mobile-drawer-link-active' : ''}`}
+                    >
+                      <span className="text-xl">{link.icon}</span>
+                      <span>{link.name}</span>
+                      {isActive && <span className="mobile-drawer-dot" />}
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Drawer Footer */}
+              <div className="mobile-drawer-footer">
+                <button
+                  onClick={() => { setDrawerOpen(false); logout(); }}
+                  className="mobile-drawer-logout"
+                >
+                  <span>🚪</span>
+                  <span>تسجيل الخروج</span>
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
       {/* ─── Main Content Area with Sidebar ─── */}
-      <div className="flex flex-col md:flex-row flex-1 overflow-hidden">
-        {/* Sidebar */}
+      <div className="flex flex-col md:flex-row flex-1 overflow-hidden mobile-content-offset">
+        {/* Desktop Sidebar */}
         <Sidebar />
-        
+
         {/* Page Content */}
         <div className="flex-1 flex flex-col overflow-y-auto relative min-w-0">
-          
           <AnimatePresence mode="wait">
             <motion.main
               initial={{ opacity: 0, y: 10 }}
@@ -109,8 +274,11 @@ export default function DashboardLayout({ children }) {
           </AnimatePresence>
         </div>
 
-        {/* ─── Global Left Ad Sidebar ─── */}
-        <div className="hidden lg:flex w-[200px] flex-shrink-0 flex-col items-center justify-start py-8 px-4 border-r border-[var(--glass-border)]" style={{ background: 'var(--canvas-bg)' }}>
+        {/* ─── Global Left Ad Sidebar (Desktop only) ─── */}
+        <div
+          className="hidden lg:flex w-[200px] flex-shrink-0 flex-col items-center justify-start py-8 px-4 border-r border-[var(--glass-border)]"
+          style={{ background: 'var(--canvas-bg)' }}
+        >
           <AdPlaceholder type="skyscraper" />
         </div>
       </div>
